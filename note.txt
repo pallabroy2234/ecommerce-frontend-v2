@@ -1,0 +1,2 @@
+Taka symbole = ৳
+Taka symbole HTML CODE = &#2547;

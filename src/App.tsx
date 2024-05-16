@@ -7,8 +7,8 @@ const Search = lazy(() => import("./pages/Search.tsx"));
 const Cart = lazy(() => import("./pages/Cart.tsx"));
 
 // * Admin Routes
-const Dashboard = lazy(() => import("./pages/admin/dashboard"));
-const Products = lazy(() => import("./pages/admin/products"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard.tsx"));
+const Products = lazy(() => import("./pages/admin/products.tsx"));
 const Customers = lazy(() => import("./pages/admin/customers"));
 const Transaction = lazy(() => import("./pages/admin/transaction"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));

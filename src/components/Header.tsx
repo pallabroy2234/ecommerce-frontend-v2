@@ -3,7 +3,7 @@ import {FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUser} from "react-
 import {useState} from "react";
 
 const user = {
-    _id: "asdfasd",
+    _id: "",
     role: "admin"
 }
 

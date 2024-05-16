@@ -30,6 +30,15 @@ const cartItems = [
         quantity: 1,
         stock: 100
 
+    },
+    {
+        productId: 3,
+        name: "Product 3",
+        image: "https://m.media-amazon.com/images/I/81dVkD9YyOL._AC_SX522_.jpg",
+        price: 1000,
+        quantity: 1,
+        stock: 100
+
     }
 ];
 const tax = Math.round(subtotal * 0.18);

@@ -19,7 +19,7 @@ const Header = () => {
 
     return (
         <nav className="header">
-            <Link to={"/"} onClick={()=> setIsOpen(false)} >Home</Link>
+            <Link to={"/"} onClick={()=> setIsOpen(false)} >HOME</Link>
             <Link to={"/search"} onClick={()=> setIsOpen(false)}><FaSearch/></Link>
             <Link to={"/cart"} onClick={()=> setIsOpen(false)}><FaShoppingBag/></Link>
             {

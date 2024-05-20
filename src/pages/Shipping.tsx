@@ -33,7 +33,7 @@ const Shipping = () => {
 				<h1>Shipping Address</h1>
 				<input onChange={(e) => handleChange(e)} required type='text' name='address' value={shippingInfo.address} placeholder='Address' />
 				<input onChange={(e) => handleChange(e)} required type='text' name='city' value={shippingInfo.city} placeholder='City' />
-				<input onChange={(e) => handleChange(e)} required type='text' name='state' value={shippingInfo.state} placeholder='state' />
+				<input onChange={(e) => handleChange(e)} required type='text' name='state' value={shippingInfo.state} placeholder='State' />
 				<select onChange={(e) => handleChange(e)} name='country' required value={shippingInfo.country}>
 					<option value=''>Choose Country</option>
 					<option value='Bangladesh'>Bangladesh</option>

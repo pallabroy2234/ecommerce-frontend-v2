@@ -41,6 +41,7 @@ body {
 @import "home";
 @import "cart";
 @import "shipping";
+@import "login";
 @import "admin-styles/dashboard";
 @import "admin-styles/products";
 @import "admin-styles/chart";
@@ -91,8 +92,11 @@ body {
   }
 }
 
-
-
+.heading{
+  @include heading;
+  margin: 1rem 0;
+  text-align: center;
+}
 
 .admin-container {
   @include grid(1fr 4fr, 2rem);

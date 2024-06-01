@@ -12,7 +12,7 @@ const Search = () => {
 		console.log("Added to Cart");
 	};
 
-	const isNextPage = true;
+	const isNextPage = false;
 	const isPrevPage = true;
 
 	return (
@@ -44,7 +44,7 @@ const Search = () => {
 				<h1>Products</h1>
 				<input onChange={(e) => setSearch(e.target.value)} type='text' value={search} placeholder='Search By Name...' />
 
-				<div className='search_Product_list'>
+				<div className='search_product_list'>
 					<ProductCard productId='asdfasd' image='https://m.media-amazon.com/images/I/81dVkD9YyOL._AC_SX522_.jpg' name='Apple Macbook' price={1000} stock={20} handler={handleAddToCart} />
 				</div>
 				<article>

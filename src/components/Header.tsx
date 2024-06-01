@@ -3,8 +3,8 @@ import {FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUser} from "react-
 import {useState} from "react";
 
 const user = {
-	_id: "",
-	role: "",
+	_id: "afdaweadffas",
+	role: "admin",
 };
 
 const Header = () => {
@@ -38,7 +38,6 @@ const Header = () => {
 									Admin
 								</Link>
 							)}
-
 							<Link to={"/orders"} onClick={() => setIsOpen(false)}>
 								Orders
 							</Link>

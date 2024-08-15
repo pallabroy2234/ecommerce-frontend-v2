@@ -2,6 +2,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {lazy, Suspense} from "react";
 import Loader from "./components/Loader.tsx";
 import Header from "./components/Header.tsx";
+import {Toaster} from "react-hot-toast";
 
 const Home = lazy(() => import("./pages/Home.tsx"));
 const Search = lazy(() => import("./pages/Search.tsx"));
@@ -75,6 +76,7 @@ const App = () => {
 					</Route>
 				</Routes>
 			</Suspense>
+			<Toaster position='bottom-center' />
 		</Router>
 	);
 };

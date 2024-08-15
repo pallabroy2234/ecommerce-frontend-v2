@@ -1,9 +1,24 @@
 import React, {useState} from "react";
 import {FcGoogle} from "react-icons/fc";
+import toast from "react-hot-toast";
+import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import {auth} from "../firebase.ts";
 
 const Login = () => {
 	const [gender, setGender] = useState<string>("");
 	const [date, setDate] = useState<string>(":");
+
+	// * login handler
+	const handleLogin = async () => {
+		try {
+			const provider = new GoogleAuthProvider();
+			const {user} = await signInWithPopup(auth, provider);
+
+			console.log(user);
+		} catch (error) {
+			toast.error("Failed to login");
+		}
+	};
 
 	return (
 		<div className='login'>
@@ -24,7 +39,7 @@ const Login = () => {
 				</div>
 				<div>
 					<p>Already Signed In Once</p>
-					<button type='button'>
+					<button onClick={handleLogin} type='button'>
 						<FcGoogle />
 						<span>Sign in with Google</span>
 					</button>

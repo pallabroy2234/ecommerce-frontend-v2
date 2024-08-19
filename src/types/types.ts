@@ -4,6 +4,6 @@ export interface User {
 	email: string;
 	image: string;
 	gender: string;
-	role: string;
+	role?: string;
 	dob: string;
 }

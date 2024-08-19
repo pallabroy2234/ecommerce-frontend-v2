@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {apiBaseUrl} from "../store.ts";
 import {MessageResponse} from "../../types/api-types.ts";
 import {User} from "../../types/types.ts";
+import {apiBaseUrl} from "./apiBaseUrl.ts";
 
 export const userAPI = createApi({
 	reducerPath: "userApi",

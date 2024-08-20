@@ -1,8 +1,13 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {lazy, Suspense} from "react";
+import {lazy, Suspense, useEffect} from "react";
 import Loader from "./components/Loader.tsx";
 import Header from "./components/Header.tsx";
 import {Toaster} from "react-hot-toast";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "./firebase.ts";
+import {userExist, userNotExist} from "./redux/reducer/userReducer.ts";
+import {useDispatch} from "react-redux";
+import {getUser} from "./redux/api/userAPI.ts";
 
 const Home = lazy(() => import("./pages/Home.tsx"));
 const Search = lazy(() => import("./pages/Search.tsx"));
@@ -27,6 +32,19 @@ const ProductManagement = lazy(() => import("./pages/admin/management/productman
 const TransactionManagement = lazy(() => import("./pages/admin/management/transactionmanagement"));
 
 const App = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		onAuthStateChanged(auth, async (user) => {
+			if (user) {
+				const data = await getUser(user.uid);
+				dispatch(userExist(data.payload));
+			} else {
+				dispatch(userNotExist());
+			}
+		});
+	}, []);
+
 	return (
 		<Router>
 			{/*  Header   */}

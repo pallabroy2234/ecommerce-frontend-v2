@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {userAPI} from "./api/userAPI.ts";
+import {userReducer} from "./reducer/userReducer.ts";
 
 // * NODE_ENV Wise API Base URL
 // const getApiBaseUrl = (): string => {
@@ -22,6 +23,7 @@ import {userAPI} from "./api/userAPI.ts";
 export const store = configureStore({
 	reducer: {
 		[userAPI.reducerPath]: userAPI.reducer,
+		[userReducer.name]: userReducer.reducer,
 	},
 	devTools: import.meta.env.MODE === "development",
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([userAPI.middleware]),

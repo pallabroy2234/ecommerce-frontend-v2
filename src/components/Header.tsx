@@ -1,13 +1,13 @@
 import {Link} from "react-router-dom";
 import {FaSearch, FaShoppingBag, FaSignInAlt, FaSignOutAlt, FaUser} from "react-icons/fa";
 import {useState} from "react";
+import {User} from "../types/types.ts";
 
-const user = {
-	_id: "afdaweadffas",
-	role: "admin",
-};
+interface PropsType {
+	user: User | null;
+}
 
-const Header = () => {
+const Header = ({user}: PropsType) => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const handleLogout = () => {

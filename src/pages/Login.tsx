@@ -28,7 +28,6 @@ const Login = () => {
 				gender,
 				dob: date,
 			});
-
 			if (res.data) {
 				toast.success(res.data.message);
 			} else {

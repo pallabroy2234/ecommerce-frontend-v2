@@ -6,8 +6,9 @@ import {Toaster} from "react-hot-toast";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth} from "./firebase.ts";
 import {userExist, userNotExist} from "./redux/reducer/userReducer.ts";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "./redux/api/userAPI.ts";
+import {UserReducerInitialState} from "./types/reducer-types.ts";
 
 const Home = lazy(() => import("./pages/Home.tsx"));
 const Search = lazy(() => import("./pages/Search.tsx"));
@@ -33,6 +34,9 @@ const TransactionManagement = lazy(() => import("./pages/admin/management/transa
 
 const App = () => {
 	const dispatch = useDispatch();
+	const {user, loading} = useSelector(
+		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
+	);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, async (user) => {
@@ -45,11 +49,13 @@ const App = () => {
 		});
 	}, []);
 
-	return (
+	return loading ? (
+		<Loader />
+	) : (
 		<Router>
 			{/*  Header   */}
 
-			<Header />
+			<Header user={user} />
 
 			<Suspense fallback={<Loader />}>
 				<Routes>

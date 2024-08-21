@@ -60,9 +60,10 @@ body {
   width: 100%;
   margin: auto;
   overflow: auto;
-  >h1{
+
+  > h1 {
     @include heading;
-    margin:1rem 0;
+    margin: 1rem 0;
     text-align: left;
   }
 }
@@ -103,13 +104,13 @@ body {
     position: absolute;
     left: calc(100% - 110px);
     top: 8%;
+    z-index: 1000;
 
     > div {
       @include flex(column, flex-start, center, 0.25rem)
     }
   }
 }
-
 
 
 .admin-container {

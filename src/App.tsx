@@ -80,7 +80,7 @@ const App = () => {
 					<Route
 						element={
 							<ProtectedRoute
-								isAuthenticated={true}
+								isAuthenticated={!!user}
 								adminRoute={true}
 								isAdmin={user?.role === "admin"}
 							/>

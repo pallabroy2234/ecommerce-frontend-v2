@@ -64,25 +64,19 @@ const App = () => {
 					<Route path='/search' element={<Search />} />
 					<Route path='/cart' element={<Cart />} />
 
-					{/* Not Logged IN Route */}
+					{/* Only Not Logged In User Route */}
+					<Route element={<ProtectedRoute isAuthenticated={!user} />}>
+						<Route path='/login' element={<Login />} />
+					</Route>
 
-					<Route
-						path='/login'
-						element={
-							<ProtectedRoute isAuthenticated={!user}>
-								<Login />
-							</ProtectedRoute>
-						}
-					/>
-
-					{/* Logged In User Routes */}
+					{/* Only  Logged In User Routes */}
 					<Route element={<ProtectedRoute isAuthenticated={!!user} />}>
 						<Route path='/shipping' element={<Shipping />} />
 						<Route path='/orders' element={<Orders />} />
 						<Route path='/order/:id' element={<OrderDetails />} />
 					</Route>
 
-					{/*  admin routes  */}
+					{/* Ony Admin Routes  */}
 					<Route
 						element={
 							<ProtectedRoute

@@ -1,10 +1,20 @@
 import {Link} from "react-router-dom";
 import ProductCard from "../components/ProductCard.tsx";
+import {useLatestProductsQuery} from "../redux/api/productAPI.ts";
+import toast from "react-hot-toast";
+import {Skeleton} from "../components/Loader.tsx";
 
 const Home = () => {
+	const {data, isLoading, isError} = useLatestProductsQuery();
+	// * Latest Products
+	const latestProducts = data?.payload || [];
+
+	if (isError) toast.error("Failed to fetch products");
+
 	const handleAddToCart = () => {
 		console.log("Added to Cart");
 	};
+
 	return (
 		<div className='home'>
 			<section></section>
@@ -12,12 +22,24 @@ const Home = () => {
 				Latest Product{" "}
 				<Link to={"/search"} className='findmore'>
 					More
-				</Link>{" "}
+				</Link>
 			</h1>
 			<main>
-				<ProductCard productId='asdfasd' image='https://m.media-amazon.com/images/I/81dVkD9YyOL._AC_SX522_.jpg' name='Apple Macbook' price={1000} stock={20} handler={handleAddToCart} />
-				<ProductCard productId='asdfasd' image='https://m.media-amazon.com/images/I/81dVkD9YyOL._AC_SX522_.jpg' name='Apple Macbook' price={1000} stock={20} handler={handleAddToCart} />
-				<ProductCard productId='asdfasd' image='https://m.media-amazon.com/images/I/81dVkD9YyOL._AC_SX522_.jpg' name='Apple Macbook' price={1000} stock={20} handler={handleAddToCart} />
+				{isLoading ? (
+					<Skeleton width='80vw' />
+				) : (
+					latestProducts.map((product) => (
+						<ProductCard
+							key={product?._id}
+							productId={product?._id}
+							image={product?.image}
+							name={product?.name}
+							price={product?.price}
+							stock={product?.stock}
+							handler={handleAddToCart}
+						/>
+					))
+				)}
 			</main>
 		</div>
 	);

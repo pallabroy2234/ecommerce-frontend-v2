@@ -2,7 +2,7 @@
   padding: 2rem 5%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4rem);
+  height: calc(105vh - 4rem);
   width: 100%;
 
   > section {
@@ -29,9 +29,19 @@
     display: flex;
     gap: 1rem;
     overflow-x: auto;
+    overflow-y: hidden;
 
     &::-webkit-scrollbar {
-      display: none;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $color3;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $color1;
     }
   }
 }
@@ -45,38 +55,44 @@
   position: relative;
   background: #ffffff;
   @include flex(column, flex-start, center, 4px);
+
   &:hover > div {
     opacity: 1;
   }
+
   img {
     @include square(calc(18.75rem - 3rem));
     object-fit: contain;
     margin: 1rem;
 
   }
-  span{
+
+  span {
     font-weight: 700;
     font-size: 1.1rem;
   }
-  >div{
+
+  > div {
     position: absolute;
     opacity: 0;
     @include square(100%);
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     @include flex;
     background: #0000006b;
-    button{
+
+    button {
       @include flex;
       @include square(3rem);
       border-radius: 100%;
-      background-color:$color3;
+      background-color: $color3;
       color: $color1;
       font-size: 1.1rem;
-      transition:  all 0.3s;
+      transition: all 0.3s;
       cursor: pointer;
-      &:hover{
-        rotate:  20deg;
+
+      &:hover {
+        rotate: 20deg;
       }
     }
   }

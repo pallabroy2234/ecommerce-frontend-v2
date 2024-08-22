@@ -14,7 +14,13 @@ export const productAPI = createApi({
 				method: "GET",
 			}),
 		}),
+		adminAllProducts: builder.query<AllProductsResponse, string>({
+			query: (id) => ({
+				url: `/admin-products?id=${id}`,
+				method: "GET",
+			}),
+		}),
 	}),
 });
 
-export const {useLatestProductsQuery} = productAPI;
+export const {useLatestProductsQuery, useAdminAllProductsQuery} = productAPI;

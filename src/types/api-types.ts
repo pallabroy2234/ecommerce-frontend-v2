@@ -32,3 +32,29 @@ export type CategoriesResponse = {
 	message: string;
 	payload?: string[];
 };
+
+export type Pagination = {
+	totalNumberOfProducts: number | null;
+	totalPages: number | null | undefined;
+	currentPage: number | null;
+	previousPage: number | null;
+	nextPage: number | null;
+};
+
+export type SearchProductsResponse = {
+	success: boolean;
+	message: string;
+	payload?: Product[];
+	pagination?: Pagination;
+	link?: {
+		previous: string | null;
+		next: string | null;
+	};
+};
+export type SearchProductsParams = {
+	search: string;
+	price: number;
+	category: string;
+	sort: string;
+	page: number;
+};

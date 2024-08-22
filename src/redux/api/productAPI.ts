@@ -1,6 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {apiBaseUrl} from "./apiBaseUrl";
-import {AllProductsResponse, CategoriesResponse} from "../../types/api-types";
+import {
+	AllProductsResponse,
+	CategoriesResponse,
+	SearchProductsParams,
+	SearchProductsResponse,
+} from "../../types/api-types";
 
 export const productAPI = createApi({
 	reducerPath: "productApi",
@@ -26,7 +31,24 @@ export const productAPI = createApi({
 				method: "GET",
 			}),
 		}),
+		searchProducts: builder.query<SearchProductsResponse, SearchProductsParams>({
+			query: ({search, price, category, sort, page}) => {
+				let base = `/all?search=${search}&page=${page}`;
+				if (price) base += `&price=${price}`;
+				if (category) base += `&category=${category}`;
+				if (sort) base += `&sort=${sort}`;
+				return {
+					url: base,
+					method: "GET",
+				};
+			},
+		}),
 	}),
 });
 
-export const {useLatestProductsQuery, useAdminAllProductsQuery, useCategoriesQuery} = productAPI;
+export const {
+	useLatestProductsQuery,
+	useAdminAllProductsQuery,
+	useCategoriesQuery,
+	useSearchProductsQuery,
+} = productAPI;

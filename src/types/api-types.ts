@@ -26,3 +26,9 @@ export type AllProductsResponse = {
 	message: string;
 	payload?: Product[];
 };
+
+export type CategoriesResponse = {
+	success: boolean;
+	message: string;
+	payload?: string[];
+};

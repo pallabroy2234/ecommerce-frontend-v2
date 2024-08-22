@@ -12,25 +12,56 @@ export const productAPI = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/product`,
 	}),
+
 	endpoints: (builder) => ({
+		/**
+		 * @description         Get all latest products
+		 * @path                /api/v1/product/latest
+		 * @method              GET
+		 * @access              Public
+		 * */
 		latestProducts: builder.query<AllProductsResponse, void>({
 			query: () => ({
 				url: "/latest",
 				method: "GET",
 			}),
 		}),
+
+		/**
+		 * @description         Get all products for admin
+		 * @path                /api/v1/product/admin-products
+		 * #query               id
+		 * @method              GET
+		 * @access              Private (Admin)
+		 * */
 		adminAllProducts: builder.query<AllProductsResponse, string>({
 			query: (id) => ({
 				url: `/admin-products?id=${id}`,
 				method: "GET",
 			}),
 		}),
+
+		/**
+		 * @description         Get all categories
+		 * @path                /api/v1/product/categories
+		 * @method              GET
+		 * @access              Public
+		 * */
 		categories: builder.query<CategoriesResponse, void>({
 			query: () => ({
 				url: "/categories",
 				method: "GET",
 			}),
 		}),
+
+		/**
+		 * @description         Search products by query
+		 * @path                /api/v1/product/all
+		 * #query               search, price, category, sort, page
+		 * @method              GET
+		 * @access              Public
+		 *
+		 * */
 		searchProducts: builder.query<SearchProductsResponse, SearchProductsParams>({
 			query: ({search, price, category, sort, page}) => {
 				let base = `/all?search=${search}&page=${page}`;
@@ -42,6 +73,22 @@ export const productAPI = createApi({
 					method: "GET",
 				};
 			},
+		}),
+
+		/**
+		 * @description         Create a new product
+		 * @path                /api/v1/product/new
+		 * #body                name, description, price, stock, category, image
+		 * @method              POST
+		 * @access              Private (Admin)
+		 *
+		 * */
+
+		createProduct: builder.mutation({
+			query: () => ({
+				url: "/new",
+				method: "POST",
+			}),
 		}),
 	}),
 });

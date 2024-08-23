@@ -3,6 +3,8 @@ import {apiBaseUrl} from "./apiBaseUrl";
 import {
 	AllProductsResponse,
 	CategoriesResponse,
+	MessageResponse,
+	NewProductRequest,
 	SearchProductsParams,
 	SearchProductsResponse,
 } from "../../types/api-types";
@@ -12,6 +14,12 @@ export const productAPI = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/product`,
 	}),
+
+	/**
+	 * @description         Tag Types
+	 *
+	 * */
+	tagTypes: ["products"],
 
 	endpoints: (builder) => ({
 		/**
@@ -25,6 +33,7 @@ export const productAPI = createApi({
 				url: "/latest",
 				method: "GET",
 			}),
+			providesTags: ["products"],
 		}),
 
 		/**
@@ -39,6 +48,7 @@ export const productAPI = createApi({
 				url: `/admin-products?id=${id}`,
 				method: "GET",
 			}),
+			providesTags: ["products"],
 		}),
 
 		/**
@@ -52,6 +62,7 @@ export const productAPI = createApi({
 				url: "/categories",
 				method: "GET",
 			}),
+			providesTags: ["products"],
 		}),
 
 		/**
@@ -73,6 +84,7 @@ export const productAPI = createApi({
 					method: "GET",
 				};
 			},
+			providesTags: ["products"],
 		}),
 
 		/**
@@ -84,11 +96,13 @@ export const productAPI = createApi({
 		 *
 		 * */
 
-		createProduct: builder.mutation({
-			query: () => ({
-				url: "/new",
+		newProduct: builder.mutation<MessageResponse, NewProductRequest>({
+			query: ({formData, id}) => ({
+				url: `/new?id=${id}`,
 				method: "POST",
+				body: formData,
 			}),
+			invalidatesTags: ["products"],
 		}),
 	}),
 });
@@ -98,4 +112,5 @@ export const {
 	useAdminAllProductsQuery,
 	useCategoriesQuery,
 	useSearchProductsQuery,
+	useNewProductMutation,
 } = productAPI;

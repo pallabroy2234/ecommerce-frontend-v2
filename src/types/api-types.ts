@@ -13,6 +13,7 @@ export type CustomError = {
 export type MessageResponse = {
 	success: boolean;
 	message: string;
+	payload?: any;
 };
 
 export type UserResponse = {
@@ -57,4 +58,9 @@ export type SearchProductsParams = {
 	category: string;
 	sort: string;
 	page: number;
+};
+
+export type NewProductRequest = {
+	id: string;
+	formData: FormData;
 };

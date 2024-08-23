@@ -26,6 +26,7 @@ export const productAPI = createApi({
 		 * @description         Get all latest products
 		 * @path                /api/v1/product/latest
 		 * @method              GET
+		 * @tags                products
 		 * @access              Public
 		 * */
 		latestProducts: builder.query<AllProductsResponse, void>({
@@ -41,6 +42,7 @@ export const productAPI = createApi({
 		 * @path                /api/v1/product/admin-products
 		 * #query               id
 		 * @method              GET
+		 * @tags                products
 		 * @access              Private (Admin)
 		 * */
 		adminAllProducts: builder.query<AllProductsResponse, string>({
@@ -55,6 +57,7 @@ export const productAPI = createApi({
 		 * @description         Get all categories
 		 * @path                /api/v1/product/categories
 		 * @method              GET
+		 * @tags                products
 		 * @access              Public
 		 * */
 		categories: builder.query<CategoriesResponse, void>({
@@ -70,6 +73,7 @@ export const productAPI = createApi({
 		 * @path                /api/v1/product/all
 		 * #query               search, price, category, sort, page
 		 * @method              GET
+		 * @tags                products
 		 * @access              Public
 		 *
 		 * */
@@ -92,6 +96,7 @@ export const productAPI = createApi({
 		 * @path                /api/v1/product/new
 		 * #body                name, description, price, stock, category, image
 		 * @method              POST
+		 * @invalidatesTags      products
 		 * @access              Private (Admin)
 		 *
 		 * */

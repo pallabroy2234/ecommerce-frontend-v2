@@ -15,7 +15,7 @@ const NewProduct = () => {
 
 	const [name, setName] = useState<string>("");
 	const [category, setCategory] = useState<string>("");
-	const [price, setPrice] = useState<number>(1000);
+	const [price, setPrice] = useState<number>(58);
 	const [stock, setStock] = useState<number>(1);
 	const [photoPrev, setPhotoPrev] = useState<string>("");
 	const [image, setImage] = useState<File>();
@@ -88,6 +88,7 @@ const NewProduct = () => {
 						<div>
 							<label>Stock</label>
 							<input
+								defaultValue={1}
 								required
 								type='number'
 								placeholder='Stock'

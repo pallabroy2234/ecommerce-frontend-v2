@@ -109,6 +109,21 @@ export const productAPI = createApi({
 			}),
 			invalidatesTags: ["products"],
 		}),
+
+		/**
+		 * @description         Get product details
+		 * @path                /api/v1/product/:productId
+		 * @tags                products
+		 * @access              Private (Admin)
+		 * */
+
+		productDetails: builder.query<MessageResponse, string>({
+			query: (productId) => ({
+				url: `/${productId}`,
+				method: "GET",
+			}),
+			providesTags: ["products"],
+		}),
 	}),
 });
 
@@ -117,5 +132,6 @@ export const {
 	useAdminAllProductsQuery,
 	useCategoriesQuery,
 	useSearchProductsQuery,
+	useProductDetailsQuery,
 	useNewProductMutation,
 } = productAPI;

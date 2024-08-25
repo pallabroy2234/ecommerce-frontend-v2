@@ -20,7 +20,7 @@ export type Product = {
 	__v: number;
 };
 
-export type shippingInfo = {
+export type ShippingInfo = {
 	address: string;
 	country: string;
 	city: string;
@@ -28,11 +28,11 @@ export type shippingInfo = {
 	postCode: number;
 };
 
-export type cartItem = {
+export type CartItem = {
 	productId: string;
 	quantity: number;
-	// name: string;
-	// image: string;
-	// price: number;
-	// stock: number;
+	stock: number;
+	name: string;
+	image: string;
+	price: number;
 };

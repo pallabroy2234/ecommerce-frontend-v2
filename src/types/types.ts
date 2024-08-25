@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
 	_id: string;
 	name: string;
 	email: string;
@@ -6,9 +6,9 @@ export interface User {
 	gender: string;
 	role?: string;
 	dob: string;
-}
+};
 
-export interface Product {
+export type Product = {
 	_id: string;
 	name: string;
 	category: string;
@@ -18,4 +18,21 @@ export interface Product {
 	createdAt: string;
 	updatedAt: string;
 	__v: number;
-}
+};
+
+export type shippingInfo = {
+	address: string;
+	country: string;
+	city: string;
+	division: string;
+	postCode: number;
+};
+
+export type cartItem = {
+	productId: string;
+	quantity: number;
+	// name: string;
+	// image: string;
+	// price: number;
+	// stock: number;
+};

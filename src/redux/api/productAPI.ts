@@ -3,10 +3,12 @@ import {apiBaseUrl} from "./apiBaseUrl";
 import {
 	AllProductsResponse,
 	CategoriesResponse,
+	DeleteProductRequest,
 	MessageResponse,
 	NewProductRequest,
 	SearchProductsParams,
 	SearchProductsResponse,
+	UpdateProductRequest,
 } from "../../types/api-types";
 
 export const productAPI = createApi({
@@ -92,6 +94,56 @@ export const productAPI = createApi({
 		}),
 
 		/**
+		 * @description         Get product details
+		 * @path                /api/v1/product/:productId
+		 * @method              GET
+		 * @tags                products
+		 * @access              Private (Admin)
+		 * */
+
+		productDetails: builder.query<MessageResponse, string>({
+			query: (productId) => ({
+				url: `/${productId}`,
+				method: "GET",
+			}),
+			providesTags: ["products"],
+		}),
+
+		/**
+		 * @description         Update product
+		 * @path                /api/v1/product/:productId?id=:userId
+		 * @method              PUT
+		 * @invalidatesTags     products
+		 * @body                name, description, price, stock, category, image
+		 * @access              Private (Admin)
+		 * */
+
+		updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
+			query: ({formData, userId, id}) => ({
+				url: `/${id}?id=${userId}`,
+				method: "PUT",
+				body: formData,
+			}),
+			invalidatesTags: ["products"],
+		}),
+
+		/**
+		 * @description         Delete product
+		 * @path                /api/v1/product/:productId?id=:userId
+		 * @method              DELETE
+		 * @invalidatesTags      products
+		 * @access              Private (Admin)
+		 * */
+
+		deleteProduct: builder.mutation<MessageResponse, DeleteProductRequest>({
+			query: () => ({
+				url: "/",
+				method: "DELETE",
+			}),
+			invalidatesTags: ["products"],
+		}),
+
+		/**
 		 * @description         Create a new product
 		 * @path                /api/v1/product/new
 		 * #body                name, description, price, stock, category, image
@@ -109,21 +161,6 @@ export const productAPI = createApi({
 			}),
 			invalidatesTags: ["products"],
 		}),
-
-		/**
-		 * @description         Get product details
-		 * @path                /api/v1/product/:productId
-		 * @tags                products
-		 * @access              Private (Admin)
-		 * */
-
-		productDetails: builder.query<MessageResponse, string>({
-			query: (productId) => ({
-				url: `/${productId}`,
-				method: "GET",
-			}),
-			providesTags: ["products"],
-		}),
 	}),
 });
 
@@ -133,5 +170,7 @@ export const {
 	useCategoriesQuery,
 	useSearchProductsQuery,
 	useProductDetailsQuery,
+	useUpdateProductMutation,
+	useDeleteProductMutation,
 	useNewProductMutation,
 } = productAPI;

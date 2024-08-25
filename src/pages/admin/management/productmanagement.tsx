@@ -80,6 +80,16 @@ const Productmanagement = () => {
 		}
 	};
 
+	// * Delete Product Handler
+	const deleteProductHandler = async () => {
+		try {
+			const res = await deleteProduct({userId: user?._id || "", id: params.id || ""});
+			responseToast(res, navigate, "/admin/product");
+		} catch (error) {
+			toast.error("Failed to delete product");
+		}
+	};
+
 	useEffect(() => {
 		if (data) {
 			setNameUpdate(data?.payload.name);
@@ -110,7 +120,7 @@ const Productmanagement = () => {
 							<h3>₹{price}</h3>
 						</section>
 						<article>
-							<button className='product-delete-btn'>
+							<button className='product-delete-btn' onClick={deleteProductHandler}>
 								<FaTrash />
 							</button>
 							<form onSubmit={submitHandler}>

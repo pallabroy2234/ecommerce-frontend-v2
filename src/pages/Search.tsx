@@ -4,8 +4,12 @@ import {useCategoriesQuery, useSearchProductsQuery} from "../redux/api/productAP
 import {CustomError, Pagination} from "../types/api-types.ts";
 import toast from "react-hot-toast";
 import {Skeleton} from "../components/Loader.tsx";
+import {addToCart} from "../redux/reducer/cartReducer.ts";
+import {useDispatch} from "react-redux";
+import {CartItem} from "../types/types.ts";
 
 const Search = () => {
+	const dispatch = useDispatch();
 	const {
 		data: categoriesResponse,
 		isLoading: loadingCategories,
@@ -36,8 +40,10 @@ const Search = () => {
 		const err = error as CustomError;
 		toast.error(err.data.message);
 	}
-	const handleAddToCart = () => {
-		console.log("Added to Cart");
+	const handleAddToCart = (cartItem: CartItem) => {
+		if (cartItem.stock! < 1) toast.error("Out of stock");
+		dispatch(addToCart(cartItem));
+		toast.success("Successfully added to cart");
 	};
 
 	const isPrevPage = page > 1;

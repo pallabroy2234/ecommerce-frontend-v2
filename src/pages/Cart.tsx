@@ -16,7 +16,7 @@ const Cart = () => {
 	const [couponCode, setCouponCode] = useState<string>("");
 	const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
-	// * handler
+	// * Handle Increase, Decrease and Remove
 	const handleIncrease = (cartItem: CartItem) => {
 		if (cartItem.quantity <= cartItem.stock) {
 			dispatch(addToCart({...cartItem, quantity: cartItem.quantity + 1}));

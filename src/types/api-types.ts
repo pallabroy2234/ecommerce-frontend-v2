@@ -1,4 +1,4 @@
-import {Product, User} from "./types.ts";
+import {Product, ShippingInfo, User} from "./types.ts";
 
 // ! Custom Type Error
 export type CustomError = {
@@ -74,4 +74,27 @@ export type UpdateProductRequest = {
 export type DeleteProductRequest = {
 	userId: string;
 	id: string;
+};
+
+export type OrderItem = {
+	_id: string;
+	productId: string;
+	name: string;
+	quantity: number;
+	price: number;
+	image: string;
+};
+
+export type NewOrderRequest = {
+	user: string;
+	subtotal: number;
+	tax: number;
+	discount: number;
+	total: number;
+	shippingCharges: number;
+	shippingInfo: ShippingInfo;
+	orderItems: {
+		productId: string;
+		quantity: number;
+	}[];
 };

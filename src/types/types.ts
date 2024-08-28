@@ -1,3 +1,5 @@
+import {OrderItem} from "./api-types.ts";
+
 export type User = {
 	_id: string;
 	name: string;
@@ -35,4 +37,20 @@ export type CartItem = {
 	name: string;
 	image: string;
 	price: number;
+};
+
+export type Order = {
+	shippingInfo: ShippingInfo;
+	orderItems: OrderItem[];
+	_id: string;
+	user: {
+		name: string;
+		_id: string;
+	};
+	subtotal: number;
+	tax: number;
+	shippingCharges: number;
+	discount: number;
+	total: number;
+	status: string;
 };

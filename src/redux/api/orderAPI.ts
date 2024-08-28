@@ -17,6 +17,12 @@ export const orderAPI = createApi({
 		 * @access              Private(User)
 		 * */
 		newOrder: builder.mutation<MessageResponse, NewOrderRequest>({
+			/**
+			 * @description         Create a new order
+			 * @path              /api/v1/order/new
+			 * @method             POST
+			 * @access             Private(User)
+			 * */
 			query: (order) => ({
 				url: "/new",
 				method: "POST",

@@ -55,11 +55,6 @@ const Transaction = () => {
 
 	const [rows, setRows] = useState<DataType[]>([]);
 
-	if (isError) {
-		const err = error as CustomError;
-		toast.error(err.data.message);
-	}
-
 	const Table = TableHOC<DataType>(
 		columns,
 		rows,
@@ -67,6 +62,13 @@ const Transaction = () => {
 		"Transactions",
 		rows.length > 6,
 	)();
+
+	useEffect(() => {
+		if (isError) {
+			const err = error as CustomError;
+			toast.error(err.data.message);
+		}
+	}, [isError, error]);
 
 	useEffect(() => {
 		if (data) {

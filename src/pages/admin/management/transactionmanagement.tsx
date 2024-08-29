@@ -5,7 +5,6 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 // import {apiBaseUrl} from "../../../redux/api/apiBaseUrl.ts";
 import {useState} from "react";
 
-
 const img =
 	"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
@@ -15,8 +14,8 @@ const orderItems = [
 		photo: img,
 		id: "asdsaasdas",
 		quantity: 4,
-		price: 2000
-	}
+		price: 2000,
+	},
 ];
 
 const TransactionManagement = () => {
@@ -33,7 +32,7 @@ const TransactionManagement = () => {
 		shippingCharges: 0,
 		tax: 200,
 		total: 4000 + 200 + 0 - 1200,
-		orderItems
+		orderItems,
 	});
 
 	const {
@@ -48,13 +47,13 @@ const TransactionManagement = () => {
 		tax,
 		discount,
 		total,
-		status
+		status,
 	} = order;
 
 	const updateHandler = (): void => {
 		setOrder((prev) => ({
 			...prev,
-			status: "Shipped"
+			status: "Shipped",
 		}));
 	};
 	const deleteHandler = () => {
@@ -62,14 +61,13 @@ const TransactionManagement = () => {
 	};
 
 	return (
-		<div className="admin-container">
+		<div className='admin-container'>
 			<AdminSidebar />
-			<main className="product-management">
+			<main className='product-management'>
 				<section
 					style={{
-						padding: "2rem"
-					}}
-				>
+						padding: "2rem",
+					}}>
 					<h2>Order Items</h2>
 
 					{/*{orderItems.map((i) => (*/}
@@ -85,16 +83,14 @@ const TransactionManagement = () => {
 					{/*))}*/}
 				</section>
 
-				<article className="shipping-info-card">
-					<button className="product-delete-btn" onClick={deleteHandler}>
+				<article className='shipping-info-card'>
+					<button className='product-delete-btn' onClick={deleteHandler}>
 						<FaTrash />
 					</button>
 					<h1>Order Info</h1>
 					<h5>User Info</h5>
 					<p>Name: {name}</p>
-					<p>
-						Address: {`${address}, ${city}, ${state}, ${country} ${pinCode}`}
-					</p>
+					<p>Address: {`${address}, ${city}, ${state}, ${country} ${pinCode}`}</p>
 					<h5>Amount Info</h5>
 					<p>Subtotal: {subtotal}</p>
 					<p>Shipping Charges: {shippingCharges}</p>
@@ -112,12 +108,11 @@ const TransactionManagement = () => {
 									: status === "Shipped"
 										? "green"
 										: "red"
-							}
-						>
-              {status}
-            </span>
+							}>
+							{status}
+						</span>
 					</p>
-					<button className="shipping-btn" onClick={updateHandler}>
+					<button className='shipping-btn' onClick={updateHandler}>
 						Process Status
 					</button>
 				</article>

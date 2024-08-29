@@ -330,3 +330,11 @@ body {
     opacity: 0.6;
   }
 }
+
+.not-found{
+  height: 80vh;
+  @include flex(column);
+  >svg{
+    font-size: 5rem;
+  }
+}

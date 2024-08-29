@@ -32,6 +32,7 @@ const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(() => import("./pages/admin/management/productmanagement"));
 const TransactionManagement = lazy(() => import("./pages/admin/management/transactionmanagement"));
+const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const App = () => {
 			<Suspense fallback={<Loader />}>
 				<Routes>
 					{/* Not Found Route */}
-					<Route path='*' element={<div>Not Found</div>} />
+					<Route path='*' element={<NotFound />} />
 
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />

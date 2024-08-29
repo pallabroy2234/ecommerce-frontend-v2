@@ -51,10 +51,12 @@ const Products = () => {
 	const adminAllProducts = data?.payload || [];
 	const [rows, setRows] = useState<DataType[]>([]);
 
-	if (isError) {
-		const err = error as CustomError;
-		toast.error(err.data.message);
-	}
+	useEffect(() => {
+		if (isError) {
+			const err = error as CustomError;
+			toast.error(err.data.message);
+		}
+	}, [isError, error]);
 
 	useEffect(() => {
 		if (data) {

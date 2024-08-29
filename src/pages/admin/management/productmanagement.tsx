@@ -92,7 +92,7 @@ const Productmanagement = () => {
 
 	useEffect(() => {
 		if (isError) {
-			navigate("/404");
+			return navigate("/404");
 		}
 	}, [isError, navigate]);
 

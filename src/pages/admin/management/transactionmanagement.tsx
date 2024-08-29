@@ -1,127 +1,146 @@
 import {FaTrash} from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import {useState} from "react";
+import {useEffect} from "react";
 import {OrderItem} from "../../../types/api-types.ts";
 import {apiBaseUrl} from "../../../redux/api/apiBaseUrl";
 import {useSelector} from "react-redux";
 import {UserReducerInitialState} from "../../../types/reducer-types.ts";
-import {useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useOrderDetailsQuery} from "../../../redux/api/orderAPI.ts";
+import {Order} from "../../../types/types.ts";
+import {Skeleton} from "../../../components/Loader.tsx";
 
-// const img =
-// 	"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
-
-const orderItems: any = [];
+const defaultData: Order = {
+	_id: "",
+	shippingInfo: {
+		address: "",
+		city: "",
+		division: "",
+		country: "",
+		postCode: 0,
+	},
+	status: "",
+	subtotal: 0,
+	discount: 0,
+	shippingCharges: 0,
+	tax: 0,
+	total: 0,
+	orderItems: [],
+	user: {
+		name: "",
+		_id: "",
+	},
+};
 const TransactionManagement = () => {
 	const {id} = useParams();
+	const navigate = useNavigate();
 	const {user} = useSelector(
 		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
 	);
-	const {data} = useOrderDetailsQuery({orderId: id || "", userId: user?._id || ""});
-
-	const [order, setOrder] = useState({
-		name: "Puma Shoes",
-		address: "77 black street",
-		city: "Neyword",
-		state: "Nevada",
-		country: "US",
-		pinCode: 242433,
-		status: "Processing",
-		subtotal: 4000,
-		discount: 1200,
-		shippingCharges: 0,
-		tax: 200,
-		total: 4000 + 200 + 0 - 1200,
-		orderItems,
+	const {data, isError, isLoading} = useOrderDetailsQuery({
+		orderId: id || "",
+		userId: user?._id || "",
 	});
 
 	const {
-		name,
-		address,
-		city,
-		country,
-		state,
-		pinCode,
+		shippingInfo: {address, city, country, division, postCode},
+		status,
 		subtotal,
+		discount,
 		shippingCharges,
 		tax,
-		discount,
 		total,
-		status,
-	} = order;
+		orderItems,
+		user: {name},
+	} = data?.payload || defaultData;
 
 	const updateHandler = (): void => {};
 	const deleteHandler = () => {
 		console.log("Delete");
 	};
 
+	useEffect(() => {
+		if (isError) {
+			return navigate("/404");
+		}
+	}, [isError, navigate]);
+
 	return (
 		<div className='admin-container'>
 			<AdminSidebar />
 			<main className='product-management'>
-				<section
-					style={{
-						padding: "2rem",
-					}}>
-					<h2>Order Items</h2>
+				{isLoading ? (
+					<Skeleton length={20} />
+				) : (
+					<>
+						<section
+							style={{
+								padding: "2rem",
+							}}>
+							<h2>Order Items</h2>
 
-					{orderItems.map((i) => (
-						<ProductCard
-							key={i._id}
-							name={i.name}
-							photo={`${apiBaseUrl}/${i.photo}`}
-							productId={i.productId}
-							_id={i._id}
-							quantity={i.quantity}
-							price={i.price}
-						/>
-					))}
-				</section>
+							{orderItems.map((i) => (
+								<ProductCard
+									key={i._id}
+									name={i.name}
+									image={`${apiBaseUrl}/${i.image}`}
+									productId={i.productId}
+									_id={i._id}
+									quantity={i.quantity}
+									price={i.price}
+								/>
+							))}
+						</section>
 
-				<article className='shipping-info-card'>
-					<button className='product-delete-btn' onClick={deleteHandler}>
-						<FaTrash />
-					</button>
-					<h1>Order Info</h1>
-					<h5>User Info</h5>
-					<p>Name: {name}</p>
-					<p>Address: {`${address}, ${city}, ${state}, ${country} ${pinCode}`}</p>
-					<h5>Amount Info</h5>
-					<p>Subtotal: {subtotal}</p>
-					<p>Shipping Charges: {shippingCharges}</p>
-					<p>Tax: {tax}</p>
-					<p>Discount: {discount}</p>
-					<p>Total: {total}</p>
+						<article className='shipping-info-card'>
+							<button className='product-delete-btn' onClick={deleteHandler}>
+								<FaTrash />
+							</button>
+							<h1>Order Info</h1>
+							<h5>User Info</h5>
+							<p>Name: {name}</p>
+							<p className=''>
+								Address:&nbsp;
+								{`${address}, ${city}, ${division}, ${country} ${postCode}`}
+							</p>
+							<h5>Amount Info</h5>
+							<p>Subtotal: {subtotal}</p>
+							<p>Shipping Charges: {shippingCharges}</p>
+							<p>Tax: {tax}</p>
+							<p>Discount: {discount}</p>
+							<p>Total: {total}</p>
 
-					<h5>Status Info</h5>
-					<p>
-						Status:{" "}
-						<span
-							className={
-								status === "Delivered"
-									? "purple"
-									: status === "Shipped"
-										? "green"
-										: "red"
-							}>
-							{status}
-						</span>
-					</p>
-					<button className='shipping-btn' onClick={updateHandler}>
-						Process Status
-					</button>
-				</article>
+							<h5>Status Info</h5>
+							<p>
+								Status:
+								<span
+									className={
+										status === "processing"
+											? "green"
+											: status === "shipped"
+												? "red"
+												: "purple"
+									}>
+									&nbsp;{status}
+								</span>
+							</p>
+							<button className='shipping-btn' onClick={updateHandler}>
+								Process Status
+							</button>
+						</article>
+					</>
+				)}
 			</main>
 		</div>
 	);
 };
 
-const ProductCard = ({name, photo, price, quantity, productId}: OrderItem) => (
+const ProductCard = ({name, image, price, quantity, productId}: OrderItem) => (
 	<div className='transaction-product-card'>
-		<img src={photo} alt={name} />
-		<Link to={`/product/${productId}`}>{name}</Link>
+		<img src={image} alt={name} />
+		<Link to={`/admin/product/${productId}`}>{name}</Link>
 		<span>
-			₹{price} X {quantity} = ₹{price * quantity}
+			&#2547;{price} X {quantity} = &#2547;{price * quantity}
 		</span>
 	</div>
 );

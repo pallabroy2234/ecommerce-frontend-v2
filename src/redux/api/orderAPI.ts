@@ -2,8 +2,10 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {apiBaseUrl} from "./apiBaseUrl";
 import {
 	AllOrdersResponse,
+	DeleteOrderRequest,
 	MessageResponse,
 	NewOrderRequest,
+	OrderDetailsRequest,
 	OrderDetailsResponse,
 	UpdateOrderStatusRequest,
 } from "../../types/api-types";
@@ -71,9 +73,9 @@ export const orderAPI = createApi({
 		 * @tags                orders
 		 *
 		 * */
-		orderDetails: builder.query<OrderDetailsResponse, string>({
-			query: (id) => ({
-				url: `/${id}`,
+		orderDetails: builder.query<OrderDetailsResponse, OrderDetailsRequest>({
+			query: ({orderId, userId}) => ({
+				url: `/${orderId}?id=${userId}`,
 				method: "GET",
 			}),
 			providesTags: ["orders"],
@@ -102,7 +104,7 @@ export const orderAPI = createApi({
 		 * @tags                orders
 		 * @access              Private(Admin)
 		 * */
-		deleteOrder: builder.mutation<MessageResponse, UpdateOrderStatusRequest>({
+		deleteOrder: builder.mutation<MessageResponse, DeleteOrderRequest>({
 			query: ({orderId, userId}) => ({
 				url: `/${orderId}?id=${userId}`,
 				method: "DELETE",

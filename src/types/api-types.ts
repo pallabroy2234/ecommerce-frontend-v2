@@ -103,6 +103,8 @@ export type UpdateOrderStatusRequest = {
 	orderId: string;
 	userId: string;
 };
+export type OrderDetailsRequest = UpdateOrderStatusRequest;
+export type DeleteOrderRequest = UpdateOrderStatusRequest;
 
 export type AllOrdersResponse = {
 	success: boolean;

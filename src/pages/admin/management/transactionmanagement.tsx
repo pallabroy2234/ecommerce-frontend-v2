@@ -1,24 +1,21 @@
 import {FaTrash} from "react-icons/fa";
-// import {Link} from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-// import { OrderItem } from "../../../models/types";
-// import {apiBaseUrl} from "../../../redux/api/apiBaseUrl.ts";
 import {useState} from "react";
+import ProductCard from "../../../components/ProductCard";
+import {OrderItem} from "../../../types/api-types.ts";
+import {apiBaseUrl} from "../../../redux/api/apiBaseUrl";
+import {useSelector} from "react-redux";
+import {UserReducerInitialState} from "../../../types/reducer-types.ts";
 
 const img =
 	"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
-const orderItems = [
-	{
-		name: "Puma Shoes",
-		photo: img,
-		id: "asdsaasdas",
-		quantity: 4,
-		price: 2000,
-	},
-];
-
+const orderItems: any = [];
 const TransactionManagement = () => {
+	const {user} = useSelector(
+		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
+	);
+
 	const [order, setOrder] = useState({
 		name: "Puma Shoes",
 		address: "77 black street",
@@ -50,12 +47,7 @@ const TransactionManagement = () => {
 		status,
 	} = order;
 
-	const updateHandler = (): void => {
-		setOrder((prev) => ({
-			...prev,
-			status: "Shipped",
-		}));
-	};
+	const updateHandler = (): void => {};
 	const deleteHandler = () => {
 		console.log("Delete");
 	};
@@ -70,17 +62,17 @@ const TransactionManagement = () => {
 					}}>
 					<h2>Order Items</h2>
 
-					{/*{orderItems.map((i) => (*/}
-					{/*	<ProductCard*/}
-					{/*		key={i._id}*/}
-					{/*		name={i.name}*/}
-					{/*		photo={`${apiBaseUrl}/${i.photo}`}*/}
-					{/*		productId={i.productId}*/}
-					{/*		_id={i._id}*/}
-					{/*		quantity={i.quantity}*/}
-					{/*		price={i.price}*/}
-					{/*	/>*/}
-					{/*))}*/}
+					{orderItems.map((i) => (
+						<ProductCard
+							key={i._id}
+							name={i.name}
+							photo={`${apiBaseUrl}/${i.photo}`}
+							productId={i.productId}
+							_id={i._id}
+							quantity={i.quantity}
+							price={i.price}
+						/>
+					))}
 				</section>
 
 				<article className='shipping-info-card'>
@@ -121,20 +113,14 @@ const TransactionManagement = () => {
 	);
 };
 
-// const ProductCard = ({
-// 						 name,
-// 						 photo,
-// 						 price,
-// 						 quantity,
-// 						 productId
-// 					 }: OrderItem) => (
-// 	<div className="transaction-product-card">
-// 		<img src={photo} alt={name} />
-// 		<Link to={`/product/${productId}`}>{name}</Link>
-// 		<span>
-//       ₹{price} X {quantity} = ₹{price * quantity}
-//     </span>
-// 	</div>
-// );
+const ProductCard = ({name, photo, price, quantity, productId}: OrderItem) => (
+	<div className='transaction-product-card'>
+		<img src={photo} alt={name} />
+		<Link to={`/product/${productId}`}>{name}</Link>
+		<span>
+			₹{price} X {quantity} = ₹{price * quantity}
+		</span>
+	</div>
+);
 
 export default TransactionManagement;

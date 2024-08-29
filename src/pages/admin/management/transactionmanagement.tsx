@@ -80,8 +80,16 @@ const TransactionManagement = () => {
 	};
 
 	// Delete Order Handler
-	const deleteHandler = () => {
-		console.log("Delete");
+	const deleteHandler = async () => {
+		try {
+			const res = await deleteOrder({
+				userId: user?._id || "",
+				orderId: data?.payload._id || "",
+			});
+			responseToast(res, navigate, "/admin/transaction");
+		} catch (error) {
+			toast.error("Something went wrong");
+		}
 	};
 
 	useEffect(() => {

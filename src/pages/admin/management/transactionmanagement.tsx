@@ -6,9 +6,15 @@ import {apiBaseUrl} from "../../../redux/api/apiBaseUrl";
 import {useSelector} from "react-redux";
 import {UserReducerInitialState} from "../../../types/reducer-types.ts";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useOrderDetailsQuery} from "../../../redux/api/orderAPI.ts";
+import {
+	useDeleteOrderMutation,
+	useOrderDetailsQuery,
+	useUpdateOrderStatusMutation,
+} from "../../../redux/api/orderAPI.ts";
 import {Order} from "../../../types/types.ts";
 import {Skeleton} from "../../../components/Loader.tsx";
+import {responseToast} from "../../../utils/feature.ts";
+import toast from "react-hot-toast";
 
 const defaultData: Order = {
 	_id: "",
@@ -37,10 +43,16 @@ const TransactionManagement = () => {
 	const {user} = useSelector(
 		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
 	);
+	// Order Details Query
 	const {data, isError, isLoading} = useOrderDetailsQuery({
 		orderId: id || "",
 		userId: user?._id || "",
 	});
+
+	// Update Order Status Mutation
+	const [updateOrderStatus] = useUpdateOrderStatusMutation();
+	// Delete Order Mutation
+	const [deleteOrder] = useDeleteOrderMutation();
 
 	const {
 		shippingInfo: {address, city, country, division, postCode},
@@ -54,7 +66,20 @@ const TransactionManagement = () => {
 		user: {name},
 	} = data?.payload || defaultData;
 
-	const updateHandler = (): void => {};
+	// Update Order Handler
+	const updateHandler = async () => {
+		try {
+			const res = await updateOrderStatus({
+				userId: user?._id || "",
+				orderId: data?.payload._id || "",
+			});
+			responseToast(res, navigate, "/admin/transaction");
+		} catch (error) {
+			toast.error("Something went wrong");
+		}
+	};
+
+	// Delete Order Handler
 	const deleteHandler = () => {
 		console.log("Delete");
 	};

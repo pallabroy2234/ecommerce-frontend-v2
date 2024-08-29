@@ -68,7 +68,7 @@ export type NewProductRequest = {
 export type UpdateProductRequest = {
 	userId: string;
 	id: string;
-	formData: FormData;
+	// formData: FormData;
 };
 
 export type DeleteProductRequest = {

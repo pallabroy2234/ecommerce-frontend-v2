@@ -55,11 +55,13 @@ const App = () => {
 	) : (
 		<Router>
 			{/*  Header   */}
-
 			<Header user={user} />
 
 			<Suspense fallback={<Loader />}>
 				<Routes>
+					{/* Not Found Route */}
+					<Route path='*' element={<div>Not Found</div>} />
+
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />
 					<Route path='/cart' element={<Cart />} />

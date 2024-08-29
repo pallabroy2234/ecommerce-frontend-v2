@@ -20,7 +20,7 @@ const Productmanagement = () => {
 	);
 	const params = useParams();
 	const navigate = useNavigate();
-	const {data, isLoading} = useProductDetailsQuery(params.id || "");
+	const {data, isLoading, isError} = useProductDetailsQuery(params.id || "");
 
 	const {image, name, price, stock, category} = data?.payload || {
 		image: "",
@@ -89,6 +89,12 @@ const Productmanagement = () => {
 			toast.error("Failed to delete product");
 		}
 	};
+
+	useEffect(() => {
+		if (isError) {
+			navigate("/404");
+		}
+	}, [isError, navigate]);
 
 	useEffect(() => {
 		if (data) {

@@ -1,20 +1,23 @@
 import {FaTrash} from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import {useState} from "react";
-import ProductCard from "../../../components/ProductCard";
 import {OrderItem} from "../../../types/api-types.ts";
 import {apiBaseUrl} from "../../../redux/api/apiBaseUrl";
 import {useSelector} from "react-redux";
 import {UserReducerInitialState} from "../../../types/reducer-types.ts";
+import {useParams} from "react-router-dom";
+import {useOrderDetailsQuery} from "../../../redux/api/orderAPI.ts";
 
-const img =
-	"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
+// const img =
+// 	"https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvZXN8ZW58MHx8MHx8&w=1000&q=804";
 
 const orderItems: any = [];
 const TransactionManagement = () => {
+	const {id} = useParams();
 	const {user} = useSelector(
 		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
 	);
+	const {data} = useOrderDetailsQuery({orderId: id || "", userId: user?._id || ""});
 
 	const [order, setOrder] = useState({
 		name: "Puma Shoes",

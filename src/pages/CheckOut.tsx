@@ -1,9 +1,9 @@
 import {Elements, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import {FormEvent, useState} from "react";
-import toast from "react-hot-toast";
 import {Navigate, useLocation, useNavigate} from "react-router-dom";
 import {frontendUrl} from "../redux/api/apiBaseUrl.ts";
+import handleStripeError from "../utils/stripeError.ts";
 
 const stripePromise = loadStripe(
 	"pk_test_51P85zqKkIuFqly0WcH0jii0JelERIPZjhKbj0NxNftJhxfKF5ZntMxTbVP60csDXya2E0tBYAv54YFzxRRSG4mFe00ejlUU33F",
@@ -33,7 +33,8 @@ const CheckOutForm = () => {
 
 		if (error) {
 			setIsProcessing(false);
-			toast.error(error.message || "An error occurred while processing the payment");
+			handleStripeError(error);
+			return;
 		}
 		if (paymentIntent?.status === "succeeded") {
 			navigate("/orders");

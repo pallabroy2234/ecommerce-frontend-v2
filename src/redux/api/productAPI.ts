@@ -13,6 +13,7 @@ import {
 
 export const productAPI = createApi({
 	reducerPath: "productApi",
+	invalidationBehavior: "immediately",
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/product`,
 	}),
@@ -119,9 +120,10 @@ export const productAPI = createApi({
 		 * */
 
 		updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
-			query: ({userId, id}) => ({
+			query: ({userId, id, formData}) => ({
 				url: `/${id}?id=${userId}`,
 				method: "PUT",
+				body: formData,
 			}),
 			invalidatesTags: ["products"],
 		}),

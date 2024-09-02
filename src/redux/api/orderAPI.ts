@@ -9,14 +9,15 @@ import {
 	OrderDetailsResponse,
 	UpdateOrderStatusRequest,
 } from "../../types/api-types";
+import {productAPI} from "./productAPI.ts";
 
 export const orderAPI = createApi({
 	reducerPath: "orderApi",
+	invalidationBehavior: "immediately",
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/order`,
 	}),
 	tagTypes: ["orders"],
-
 	//
 	endpoints: (builder) => ({
 		/**
@@ -33,6 +34,9 @@ export const orderAPI = createApi({
 				body: order,
 			}),
 			invalidatesTags: ["orders"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(productAPI.util.invalidateTags(["products"]));
+			},
 		}),
 
 		/**

@@ -25,7 +25,7 @@ const Cart = () => {
 
 	// * Handle Increase, Decrease and Remove
 	const handleIncrease = (cartItem: CartItem) => {
-		if (cartItem.quantity <= cartItem.stock) {
+		if (cartItem.quantity < cartItem.stock) {
 			dispatch(addToCart({...cartItem, quantity: cartItem.quantity + 1}));
 		}
 	};
@@ -42,7 +42,7 @@ const Cart = () => {
 		const {token, cancel} = axios.CancelToken.source();
 		const timeOutID = setTimeout(() => {
 			axios
-				.get(`${apiBaseUrl}/api/v1/payment/coupon/discount?coupon=${couponCode}`, {
+				.get(`${apiBaseUrl}/api/v1/payment/coupon/discount?coupon=${couponCode || ""}`, {
 					cancelToken: token,
 				})
 				.then((res) => {

@@ -68,16 +68,13 @@ const Productmanagement = () => {
 		if (stockUpdate !== undefined) formData.set("stock", stockUpdate.toString());
 		if (categoryUpdate) formData.set("category", categoryUpdate);
 		if (imageFile) formData.set("image", imageFile);
-		try {
-			const res = await updateProduct({
-				formData,
-				userId: user?._id || "",
-				id: params.id || "",
-			});
-			responseToast(res, navigate, "/admin/product");
-		} catch (error) {
-			toast.error("Failed to update product");
-		}
+
+		const res = await updateProduct({
+			formData,
+			userId: user?._id || "",
+			id: params.id || "",
+		});
+		responseToast(res, navigate, "/admin/product");
 	};
 
 	// * Delete Product Handler

@@ -16,7 +16,7 @@ const Home = () => {
 	if (isError) toast.error("Failed to fetch products");
 
 	const handleAddToCart = (cartItem: CartItem) => {
-		if (cartItem.stock! < 1) toast.error("Out of stock");
+		if (cartItem.stock < 1) return toast.error("Out of stock");
 		dispatch(addToCart(cartItem));
 		toast.success("Successfully added to cart");
 	};

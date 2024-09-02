@@ -31,3 +31,5 @@ const getFrontendUrl = (): string => {
 };
 
 export const frontendUrl: string = getFrontendUrl();
+
+export const sharedTagTypes = ["orders", "products"];

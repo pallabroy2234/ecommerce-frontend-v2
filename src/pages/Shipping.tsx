@@ -1,11 +1,12 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {BiArrowBack} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {CartReducerInitialState} from "../types/reducer-types.ts";
 import axios from "axios";
 import {apiBaseUrl} from "../redux/api/apiBaseUrl.ts";
 import toast from "react-hot-toast";
+import {saveShippingInfo} from "../redux/reducer/cartReducer.ts";
 
 type ShippingInfo = {
 	address: string;
@@ -20,6 +21,7 @@ const Shipping = () => {
 		(state: {cartReducer: CartReducerInitialState}) => state.cartReducer,
 	);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
 		address: "",
@@ -52,6 +54,7 @@ const Shipping = () => {
 			navigate("/pay", {
 				state: data?.payload,
 			});
+			dispatch(saveShippingInfo({...shippingInfo, postCode: Number(shippingInfo.postCode)}));
 		} catch (error) {
 			toast.error("Something went wrong.");
 		}
@@ -108,7 +111,7 @@ const Shipping = () => {
 					type='number'
 					name='postCode'
 					value={shippingInfo.postCode}
-					placeholder='Pin Code'
+					placeholder='Post Code'
 				/>
 				<button type='submit'>Pay Now</button>
 			</form>

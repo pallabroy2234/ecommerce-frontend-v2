@@ -7,27 +7,23 @@ import handleStripeError from "../utils/stripeError.ts";
 import toast from "react-hot-toast";
 import {CustomError, NewOrderRequest} from "../types/api-types.ts";
 import {useDispatch, useSelector} from "react-redux";
-import {CartReducerInitialState, UserReducerInitialState} from "../types/reducer-types.ts";
 import {useNewOrderMutation} from "../redux/api/orderAPI.ts";
 import {resetCart} from "../redux/reducer/cartReducer.ts";
 import {responseToast} from "../utils/feature.ts";
+import {AppDispatch, RootState} from "../redux/store.ts";
 
-const stripePromise = loadStripe(
-	"pk_test_51P85zqKkIuFqly0WcH0jii0JelERIPZjhKbj0NxNftJhxfKF5ZntMxTbVP60csDXya2E0tBYAv54YFzxRRSG4mFe00ejlUU33F",
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string);
 
 const CheckOutForm = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const [isProcessing, setIsProcessing] = useState<boolean>(false);
 	const {cartItems, total, shippingCharges, shippingInfo, tax, discount, subtotal} = useSelector(
-		(state: {cartReducer: CartReducerInitialState}) => state.cartReducer,
+		(state: RootState) => state.cartReducer,
 	);
-	const {user} = useSelector(
-		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
-	);
+	const {user} = useSelector((state: RootState) => state.userReducer);
 	const [newOrder] = useNewOrderMutation();
 
 	const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -70,12 +66,12 @@ const CheckOutForm = () => {
 			if ("error" in orderResult) {
 				const error = orderResult.error as CustomError;
 				toast.error(error?.data?.message);
-				// navigate("/cart");
 				setIsProcessing(false);
+				return;
 			} else if (paymentError) {
 				handleStripeError(paymentError);
-				// navigate("/cart");
 				setIsProcessing(false);
+				return;
 			}
 
 			if (paymentIntent?.status === "succeeded" && !("error" in orderResult)) {

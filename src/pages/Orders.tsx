@@ -2,12 +2,12 @@ import TableHOC from "../components/admin/TableHOC.tsx";
 import {ReactElement, useEffect, useState} from "react";
 import {Column} from "react-table";
 import {useSelector} from "react-redux";
-import {UserReducerInitialState} from "../types/reducer-types.ts";
 import {useMyOrdersQuery} from "../redux/api/orderAPI.ts";
 import {CustomError} from "../types/api-types.ts";
 import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
 import {Skeleton} from "../components/Loader.tsx";
+import {RootState} from "../redux/store.ts";
 
 type DataType = {
 	_id: String;
@@ -45,9 +45,7 @@ const column: Column<DataType>[] = [
 	},
 ];
 const Orders = () => {
-	const {user} = useSelector(
-		(state: {userReducer: UserReducerInitialState}) => state.userReducer,
-	);
+	const {user} = useSelector((state: RootState) => state.userReducer);
 	const {data, isError, isLoading, error} = useMyOrdersQuery(user?._id || "");
 	const myOrders = data?.payload || [];
 	const [rows, setRows] = useState<DataType[]>([]);

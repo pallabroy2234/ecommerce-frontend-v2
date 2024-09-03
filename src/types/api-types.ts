@@ -22,6 +22,17 @@ export type UserResponse = {
 	payload: User;
 };
 
+export type AllUsersResponse = {
+	success: boolean;
+	message: string;
+	payload: User[];
+};
+
+export type DeleteUserRequest = {
+	userId: string;
+	id: string;
+};
+
 export type AllProductsResponse = {
 	success: boolean;
 	message: string;

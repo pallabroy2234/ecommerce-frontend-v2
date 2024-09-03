@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
+import {createLogger} from "redux-logger";
 import {userAPI} from "./api/userAPI.ts";
 import {userReducer} from "./reducer/userReducer.ts";
 import {productAPI} from "./api/productAPI.ts";
 import {cartReducer} from "./reducer/cartReducer.ts";
 import {orderAPI} from "./api/orderAPI.ts";
-import {createLogger} from "redux-logger";
+import {dashboardAPI} from "./api/dashboardAPI.ts";
 
+// * Application mode
 const applicationMode = import.meta.env.VITE_NODE_ENV;
 
 const logger = createLogger({
@@ -19,6 +21,7 @@ export const store = configureStore({
 		[userAPI.reducerPath]: userAPI.reducer,
 		[productAPI.reducerPath]: productAPI.reducer,
 		[orderAPI.reducerPath]: orderAPI.reducer,
+		[dashboardAPI.reducerPath]: dashboardAPI.reducer,
 
 		// * Reducers
 		[userReducer.name]: userReducer.reducer,
@@ -31,6 +34,7 @@ export const store = configureStore({
 			userAPI.middleware,
 			productAPI.middleware,
 			orderAPI.middleware,
+			dashboardAPI.middleware,
 		]);
 
 		// Logger middleware

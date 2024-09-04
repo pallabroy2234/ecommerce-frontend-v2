@@ -1,4 +1,4 @@
-import {Order, Product, ShippingInfo, User} from "./types.ts";
+import {Order, Product, ShippingInfo, Stats, User} from "./types.ts";
 
 // ! Custom Type Error
 export type CustomError = {
@@ -127,4 +127,10 @@ export type OrderDetailsResponse = {
 	success: boolean;
 	message: string;
 	payload: Order;
+};
+
+export type StatsResponse = {
+	success: boolean;
+	message: string;
+	payload: Stats;
 };

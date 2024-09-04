@@ -54,3 +54,40 @@ export type Order = {
 	total: number;
 	status: string;
 };
+
+type Percentage = {
+	revenue: number;
+	product: number;
+	user: number;
+	order: number;
+};
+
+type Count = {
+	totalRevenue: number;
+	totalProducts: number;
+	totalUsers: number;
+	totalOrders: number;
+};
+
+//  Stats Type
+export type Stats = {
+	categoryCount: Record<string, number>[];
+	percentage: Percentage;
+	count: Count;
+	chart: {
+		orderMonthCounts: number[];
+		orderMonthRevenue: number[];
+	};
+	userRatio: {
+		female: number;
+		male: number;
+		other: number;
+	};
+	latestTransactions: {
+		_id: string;
+		discount: number;
+		total: number;
+		status: string;
+		createdAt: string;
+	}[];
+};

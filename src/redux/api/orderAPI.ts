@@ -10,6 +10,7 @@ import {
 	UpdateOrderStatusRequest,
 } from "../../types/api-types";
 import {productAPI} from "./productAPI.ts";
+import {dashboardAPI} from "./dashboardAPI.ts";
 
 export const orderAPI = createApi({
 	reducerPath: "orderApi",
@@ -99,6 +100,9 @@ export const orderAPI = createApi({
 				method: "PUT",
 			}),
 			invalidatesTags: ["orders"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
+			},
 		}),
 
 		/**

@@ -55,14 +55,14 @@ export type Order = {
 	status: string;
 };
 
-type Percentage = {
+export type Percentage = {
 	revenue: number;
 	product: number;
 	user: number;
 	order: number;
 };
 
-type Count = {
+export type Count = {
 	totalRevenue: number;
 	totalProducts: number;
 	totalUsers: number;

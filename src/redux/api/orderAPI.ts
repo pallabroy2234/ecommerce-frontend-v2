@@ -37,6 +37,7 @@ export const orderAPI = createApi({
 			invalidatesTags: ["orders"],
 			onQueryStarted: async (_, {dispatch}) => {
 				dispatch(productAPI.util.invalidateTags(["products"]));
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
 			},
 		}),
 
@@ -118,6 +119,9 @@ export const orderAPI = createApi({
 				method: "DELETE",
 			}),
 			invalidatesTags: ["orders"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
+			},
 		}),
 	}),
 });

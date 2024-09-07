@@ -10,6 +10,7 @@ import {
 	SearchProductsResponse,
 	UpdateProductRequest,
 } from "../../types/api-types";
+import {dashboardAPI} from "./dashboardAPI.ts";
 
 export const productAPI = createApi({
 	reducerPath: "productApi",
@@ -126,6 +127,9 @@ export const productAPI = createApi({
 				body: formData,
 			}),
 			invalidatesTags: ["products"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
+			},
 		}),
 
 		/**
@@ -142,6 +146,9 @@ export const productAPI = createApi({
 				method: "DELETE",
 			}),
 			invalidatesTags: ["products"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
+			},
 		}),
 
 		/**
@@ -161,6 +168,9 @@ export const productAPI = createApi({
 				body: formData,
 			}),
 			invalidatesTags: ["products"],
+			onQueryStarted: async (_, {dispatch}) => {
+				dispatch(dashboardAPI.util.invalidateTags(["Dashboard"]));
+			},
 		}),
 	}),
 });

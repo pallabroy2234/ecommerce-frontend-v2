@@ -92,25 +92,31 @@ export type Stats = {
 	}[];
 };
 
+//  Pie Chart Type
+
+type RevenueDistribution = {
+	netMargin: number;
+	discount: number;
+	productionCost: number;
+	burnt: number;
+	marketingCost: number;
+};
+
+export type OrderFullFill = {
+	processing: number;
+	shipped: number;
+	delivered: number;
+	cancelled: number;
+};
+
 export type PieChart = {
-	orderFullFill: {
-		processing: number;
-		shipped: number;
-		delivered: number;
-		cancelled: number;
-	};
+	orderFullFill: OrderFullFill;
 	categoryPercentage: Record<string, number>[];
 	stockAvailability: {
 		inStock: number;
 		outOfStock: number;
 	};
-	revenueDistribution: {
-		netMargin: number;
-		discount: number;
-		productionCost: number;
-		burnt: number;
-		marketingCost: number;
-	};
+	revenueDistribution: RevenueDistribution;
 	adminUser: {
 		admins: number;
 		users: number;

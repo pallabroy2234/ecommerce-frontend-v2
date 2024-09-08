@@ -16,7 +16,7 @@ const CartItems = ({
 	handleRemove,
 	handleDecrease,
 }: CartItemsProps) => {
-	const {image, name, price, stock, quantity, productId} = cartItem;
+	const {image, name, price, quantity, productId} = cartItem;
 	return (
 		<div className='cart_item'>
 			<img src={`${apiBaseUrl}/${image}`} alt={name} />

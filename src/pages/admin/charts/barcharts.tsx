@@ -10,21 +10,6 @@ import {BarChart as BarChartType} from "../../../types/types.ts";
 import {Skeleton} from "../../../components/Loader.tsx";
 import {getLastMonth} from "../../../utils/feature.ts";
 
-const months = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"Aug",
-	"Sept",
-	"Oct",
-	"Nov",
-	"Dec",
-];
-
 const Barcharts = () => {
 	const {user} = useSelector((state: RootState) => state.userReducer);
 	const {data, isError, error, isLoading} = useBarChartDataQuery(user?._id ?? "");
@@ -36,8 +21,8 @@ const Barcharts = () => {
 	const orderCount =
 		(data?.payload?.orderCount as BarChartType["orderCount"]) || Array(12).fill(0);
 
-	const pallab = getLastMonth();
-	console.log(pallab);
+	const {lastSixMonth, lastTwelveMonth} = getLastMonth();
+
 	// ! Error handling
 	useEffect(() => {
 		if (isError) {
@@ -59,6 +44,7 @@ const Barcharts = () => {
 							<BarChart
 								data_2={productCount}
 								data_1={userCount}
+								labels={lastSixMonth}
 								title_1='Products'
 								title_2='Users'
 								bgColor_1={`hsl(260, 50%, 30%)`}
@@ -76,7 +62,7 @@ const Barcharts = () => {
 								title_2=''
 								bgColor_1={`hsl(180, 40%, 50%)`}
 								bgColor_2=''
-								labels={months}
+								labels={lastTwelveMonth}
 							/>
 							<h2>Orders throughout the year</h2>
 						</section>

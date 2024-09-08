@@ -12,7 +12,6 @@ export const dashboardAPI = createApi({
 	invalidationBehavior: "immediately",
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/dashboard`,
-		credentials: "include",
 	}),
 
 	/**

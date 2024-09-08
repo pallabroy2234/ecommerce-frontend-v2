@@ -44,7 +44,6 @@ const Cart = () => {
 			axios
 				.get(`${apiBaseUrl}/api/v1/payment/coupon/discount?coupon=${couponCode || ""}`, {
 					cancelToken: token,
-					withCredentials: true,
 				})
 				.then((res) => {
 					dispatch(discountApplied(res.data.payload.discount));

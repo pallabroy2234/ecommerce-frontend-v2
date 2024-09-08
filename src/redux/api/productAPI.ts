@@ -17,7 +17,6 @@ export const productAPI = createApi({
 	invalidationBehavior: "immediately",
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/product`,
-		credentials: "include",
 	}),
 
 	/**

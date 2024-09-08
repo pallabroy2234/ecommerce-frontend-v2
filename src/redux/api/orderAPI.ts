@@ -17,7 +17,6 @@ export const orderAPI = createApi({
 	invalidationBehavior: "immediately",
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/order`,
-		credentials: "include",
 	}),
 	tagTypes: ["orders"],
 	//

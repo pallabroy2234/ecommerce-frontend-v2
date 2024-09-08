@@ -6,20 +6,28 @@ import {Skeleton} from "../components/Loader.tsx";
 import {CartItem} from "../types/types.ts";
 import {useDispatch} from "react-redux";
 import {addToCart} from "../redux/reducer/cartReducer.ts";
+import {useEffect} from "react";
+import {CustomError} from "../types/api-types.ts";
 
 const Home = () => {
-	const {data, isLoading, isError} = useLatestProductsQuery();
+	const {data, isLoading, isError, error} = useLatestProductsQuery();
 	const dispatch = useDispatch();
 	// * Latest Products
 	const latestProducts = data?.payload || [];
-
-	if (isError) toast.error("Failed to fetch products");
 
 	const handleAddToCart = (cartItem: CartItem) => {
 		if (cartItem.stock < 1) return toast.error("Out of stock");
 		dispatch(addToCart(cartItem));
 		toast.success("Successfully added to cart");
 	};
+
+	// ! Handle Error
+	useEffect(() => {
+		if (isError) {
+			const err = error as CustomError;
+			toast.error(err.data.message);
+		}
+	}, [isError, error]);
 
 	return (
 		<div className='home'>

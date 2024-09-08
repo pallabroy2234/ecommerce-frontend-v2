@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {lazy, Suspense, useEffect} from "react";
-import Loader from "./components/Loader.tsx";
+import Loader, {Skeleton} from "./components/Loader.tsx";
 import Header from "./components/Header.tsx";
 import {Toaster} from "react-hot-toast";
 import {onAuthStateChanged} from "firebase/auth";
@@ -54,7 +54,7 @@ const App = () => {
 	}, []);
 
 	return loading ? (
-		<Loader />
+		<Skeleton length={20} />
 	) : (
 		<Router>
 			{/*  Header   */}

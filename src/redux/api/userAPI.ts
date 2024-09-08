@@ -14,6 +14,7 @@ export const userAPI = createApi({
 	tagTypes: ["User"],
 	baseQuery: fetchBaseQuery({
 		baseUrl: `${apiBaseUrl}/api/v1/user`,
+		credentials: "include",
 	}),
 	endpoints: (builder) => ({
 		/**
@@ -67,7 +68,9 @@ export const userAPI = createApi({
 
 export const getUser = async (id: string) => {
 	try {
-		const {data}: {data: UserResponse} = await axios.get(`${apiBaseUrl}/api/v1/user/${id}`);
+		const {data}: {data: UserResponse} = await axios.get(`${apiBaseUrl}/api/v1/user/${id}`, {
+			withCredentials: true,
+		});
 		return data;
 	} catch (error) {
 		throw error;

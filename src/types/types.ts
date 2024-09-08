@@ -127,3 +127,19 @@ export type PieChart = {
 		old: number;
 	};
 };
+
+// Bar Chart Type
+
+export type BarChart = {
+	productCount: number[];
+	userCount: number[];
+	orderCount: number[];
+};
+
+// Line Chart Type
+export type LineChart = {
+	discount: number[];
+	revenue: number[];
+	users: number[];
+	products: number[];
+};

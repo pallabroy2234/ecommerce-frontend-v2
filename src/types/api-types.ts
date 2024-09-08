@@ -1,4 +1,4 @@
-import {Order, PieChart, Product, ShippingInfo, Stats, User} from "./types.ts";
+import {BarChart, LineChart, Order, PieChart, Product, ShippingInfo, Stats, User} from "./types.ts";
 
 // ! Custom Type Error
 export type CustomError = {
@@ -139,4 +139,16 @@ export type PieChartResponse = {
 	success: boolean;
 	message: string;
 	payload: PieChart;
+};
+
+export type BarChartResponse = {
+	success: boolean;
+	message: string;
+	payload: BarChart;
+};
+
+export type LineChartResponse = {
+	success: boolean;
+	message: string;
+	payload: LineChart;
 };

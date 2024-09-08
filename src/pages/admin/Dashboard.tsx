@@ -9,17 +9,18 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store.ts";
 import {useStatsDataQuery} from "../../redux/api/dashboardAPI.ts";
 import {useEffect} from "react";
-import {CustomError} from "../../types/api-types.ts";
-import toast from "react-hot-toast";
 import {Count, Percentage, Stats} from "../../types/types.ts";
 import {Skeleton} from "../../components/Loader.tsx";
+import {useNavigate} from "react-router-dom";
+import {getLastMonth} from "../../utils/feature.ts";
 
 const userImg =
 	"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
 
 const Dashboard = () => {
 	const {user} = useSelector((state: RootState) => state.userReducer);
-	const {data, isLoading, isError, error} = useStatsDataQuery(user?._id || "");
+	const navigate = useNavigate();
+	const {data, isLoading, isError} = useStatsDataQuery(user?._id || "");
 
 	// Destructors data
 	const categoryCount = (data?.payload?.categoryCount as Stats["categoryCount"]) || [];
@@ -30,13 +31,16 @@ const Dashboard = () => {
 	const latestTransactions =
 		(data?.payload?.latestTransactions as Stats["latestTransactions"]) || [];
 
+	// Get month names
+	const {lastSixMonth} = getLastMonth();
+
 	// !  Error
 	useEffect(() => {
 		if (isError) {
-			const err = error as CustomError;
-			toast.error(err?.data.message);
+			navigate("/");
 		}
-	}, [isError, error]);
+	}, [isError]);
+
 	return (
 		<div className='admin-container'>
 			<AdminSidebar />
@@ -87,6 +91,7 @@ const Dashboard = () => {
 								<BarChart
 									data_2={chart.orderMonthCounts}
 									data_1={chart.orderMonthRevenue}
+									labels={lastSixMonth}
 									title_1='Revenue'
 									title_2='Transaction'
 									bgColor_1='rgb(0, 115, 255)'
@@ -151,7 +156,7 @@ const WidgetItem = ({heading, value, percent, color, amount = false}: WidgetItem
 	<article className='widget'>
 		<div className='widget-info'>
 			<p>{heading}</p>
-			<h4>{amount ? `₹${value}` : value}</h4>
+			<h4>{amount ? `\u09F3${value}` : value}</h4>
 			{percent > 0 ? (
 				<span className='green'>
 					<HiTrendingUp /> +{`${percent > 10000 ? 9999 : percent}%`}

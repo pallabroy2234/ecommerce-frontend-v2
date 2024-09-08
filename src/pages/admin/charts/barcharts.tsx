@@ -8,6 +8,7 @@ import {CustomError} from "../../../types/api-types.ts";
 import toast from "react-hot-toast";
 import {BarChart as BarChartType} from "../../../types/types.ts";
 import {Skeleton} from "../../../components/Loader.tsx";
+import {getLastMonth} from "../../../utils/feature.ts";
 
 const months = [
 	"January",
@@ -35,6 +36,8 @@ const Barcharts = () => {
 	const orderCount =
 		(data?.payload?.orderCount as BarChartType["orderCount"]) || Array(12).fill(0);
 
+	const pallab = getLastMonth();
+	console.log(pallab);
 	// ! Error handling
 	useEffect(() => {
 		if (isError) {

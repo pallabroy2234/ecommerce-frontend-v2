@@ -9,7 +9,6 @@ import {
 	useProductDetailsQuery,
 	useUpdateProductMutation,
 } from "../../../redux/api/productAPI.ts";
-import {apiBaseUrl} from "../../../redux/api/apiBaseUrl.ts";
 import {Skeleton} from "../../../components/Loader.tsx";
 import toast from "react-hot-toast";
 import {responseToast} from "../../../utils/feature.ts";
@@ -113,7 +112,7 @@ const Productmanagement = () => {
 					<>
 						<section>
 							<strong>ID - {data?.payload._id}</strong>
-							<img src={`${apiBaseUrl}/${image}`} alt='Product' />
+							<img src={`${image}`} alt='Product' />
 							<p>{name}</p>
 							{stock > 0 ? (
 								<span className='green'>{stock} Available</span>

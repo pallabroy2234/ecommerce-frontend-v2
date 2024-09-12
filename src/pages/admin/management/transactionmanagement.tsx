@@ -2,7 +2,6 @@ import {FaTrash} from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import {useEffect} from "react";
 import {OrderItem} from "../../../types/api-types.ts";
-import {apiBaseUrl} from "../../../redux/api/apiBaseUrl";
 import {useSelector} from "react-redux";
 import {UserReducerInitialState} from "../../../types/reducer-types.ts";
 import {Link, useNavigate, useParams} from "react-router-dom";

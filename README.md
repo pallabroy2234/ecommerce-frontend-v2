@@ -3,6 +3,8 @@
 This is a full-stack e-commerce application built with the MERN stack (MongoDB, Express.js, React.js, Node.js). The frontend is developed using **React.js** with **TypeScript**, **Redux** for state management, and **RTK Query** for fetching data from the backend API.
 
 ### [Live Demo](https://ecommerce-frontend-v2.vercel.app/)
+> **Note:** The frontend is hosted on **Vercel**, and the backend is hosted on **Render**'s free hosting.  
+> _The backend server may take some time to start up if it has been inactive for a while._
 
 ## Features
 

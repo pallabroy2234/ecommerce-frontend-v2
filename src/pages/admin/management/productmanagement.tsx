@@ -37,10 +37,10 @@ const Productmanagement = () => {
 	const [imageFile, setImageFile] = useState<File>();
 
 	// * Update Product Mutation
-	const [updateProduct] = useUpdateProductMutation();
+	const [updateProduct, {isLoading: isLoadingUpdate}] = useUpdateProductMutation();
 
 	// * Delete Product Mutation
-	const [deleteProduct] = useDeleteProductMutation();
+	const [deleteProduct, {isLoading: isDeleteLoading}] = useDeleteProductMutation();
 
 	const changeImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
 		const file: File | undefined = e.target.files?.[0];
@@ -122,7 +122,11 @@ const Productmanagement = () => {
 							<h3>₹{price}</h3>
 						</section>
 						<article>
-							<button className='product-delete-btn' onClick={deleteProductHandler}>
+							<button
+								disabled={isDeleteLoading}
+								type='button'
+								className='product-delete-btn'
+								onClick={deleteProductHandler}>
 								<FaTrash />
 							</button>
 							<form onSubmit={submitHandler}>
@@ -171,7 +175,9 @@ const Productmanagement = () => {
 								</div>
 
 								{imageUpdate && <img src={imageUpdate} alt='New Image' />}
-								<button type='submit'>Update</button>
+								<button disabled={isLoadingUpdate} type='submit'>
+									{isLoadingUpdate ? "Loading....." : "Update"}
+								</button>
 							</form>
 						</article>
 					</>

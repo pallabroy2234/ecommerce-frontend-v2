@@ -37,6 +37,10 @@ This is a full-stack e-commerce application built with the MERN stack (MongoDB, 
 ### Backend
 
 Backend code and details are managed in a separate repository.
+```bash
+git clone https://github.com/pallabroy2234/ecommerce-backend-v2.git/server
+cd server
+```
 
 ## Installation
 

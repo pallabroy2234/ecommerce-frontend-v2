@@ -5,8 +5,8 @@ This is a full-stack e-commerce application built with the MERN stack (MongoDB, 
 Backend code and details are managed in a separate repository.
 ### [Backend Repository](https://github.com/pallabroy2234/ecommerce-backend-v2.git)
 
-### [Live Demo](https://ecommerce-frontend-v2.vercel.app/)
-> **Note:** The frontend is hosted on **Vercel**, and the backend is hosted on **Render**'s free hosting.  
+### [Live Demo](https://ecom-frontend-v2-b7a6fa88076b.herokuapp.com/)
+> **Note:** The frontend is hosted on **Heroku**, and the backend is hosted on **Heroku**'s free hosting.  
 > _The backend server may take some time to start up if it has been inactive for a while._
 
 ## Features
